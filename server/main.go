@@ -41,6 +41,10 @@ type PayloadExec struct {
   Command string `json:"command"`
 }
 
+type PayloadFileRead struct {
+  Contents string `json:"contents"`
+}
+
 var config Config
 
 func main() {
@@ -133,6 +137,16 @@ func handleRead(w http.ResponseWriter, r *http.Request){
     http.Error(w, err.Error(), http.StatusBadRequest)
     return
 	}
+	contents, err := ioutil.ReadFile(p.Filename)
+	if err != nil {
+    http.Error(w, err.Error(), http.StatusBadRequest)
+	}
+
+	out := PayloadFileRead {
+		Contents: string(contents),
+	}
+
+	json.NewEncoder(w).Encode(out)
 }
 
 func handleMkdir(w http.ResponseWriter, r *http.Request){

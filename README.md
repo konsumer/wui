@@ -118,6 +118,5 @@ Other than that, you can use all the regular HTML stuff, like:
 * [open a new window](https://developer.mozilla.org/en-US/docs/Web/API/Window/open)
 * [small key/value store](https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API)
 * [database](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
-* dialogs: [confirm](https://developer.mozilla.org/en-US/docs/Web/API/Window/confirm), [alert](https://developer.mozilla.org/en-US/docs/Web/API/Window/alert), [prompt](https://developer.mozilla.org/en-US/docs/Web/API/Window/prompt)
 * [2D](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 * [3D](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)

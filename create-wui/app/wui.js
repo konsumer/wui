@@ -18,7 +18,7 @@ window.WUI.write = (filename = '', contents = '', endpoint = '/_api/') => remote
 
 // read file
 // TODO: look into typed arrays for dealing with binary files
-window.WUI.read = (filename = '', endpoint = '/_api/') => remote('read', { filename }, endpoint)
+window.WUI.read = (filename = '', endpoint = '/_api/') => remote('read', { filename }, endpoint).then(r => r.contents)
 
 // make a directory
 window.WUI.mkdir = (dirname = '', endpoint = '/_api/') => remote('mkdir', { dirname }, endpoint)

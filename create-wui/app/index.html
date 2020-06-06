@@ -9,6 +9,8 @@
 
 <button id='write'>write file</button>
 
+<button id='read'>read file</button>
+
 <script src='/wui.js'></script>
 <script>
 const updateSettings = (c = {}) => WUI.settings(c).then(s => document.querySelector('pre').innerHTML = JSON.stringify(s, null, 2))
@@ -21,6 +23,8 @@ document.getElementById('changeTitle').onclick = async () => {
 document.getElementById('exit').onclick = () => WUI.exit()
 
 document.getElementById('write').onclick = () => WUI.write('test.txt', 'o hai!')
+
+document.getElementById('read').onclick = async () => document.querySelector('pre').innerHTML = await WUI.read('test.txt')
 
 </script>
 
