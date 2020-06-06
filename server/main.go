@@ -48,7 +48,7 @@ func main() {
 	byteValue, _ := ioutil.ReadAll(r)
 	
 	// defaults
-	config = Config{
+	config = Config {
 		Title: "WUI App",
 		Icon: "./app.png",
 		Url: "/",
@@ -109,7 +109,10 @@ func handlSettings (w http.ResponseWriter, r *http.Request){
 }
 
 func handleWrite(w http.ResponseWriter, r *http.Request){
-	var p PayloadFileWrite
+	p := PayloadFileWrite {
+		Filename: "",
+		Contents: "",
+	}
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
     http.Error(w, err.Error(), http.StatusBadRequest)
@@ -118,7 +121,9 @@ func handleWrite(w http.ResponseWriter, r *http.Request){
 }
 
 func handleRead(w http.ResponseWriter, r *http.Request){
-	var p PayloadFile
+	p := PayloadFile {
+		Filename: "",
+	}
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
     http.Error(w, err.Error(), http.StatusBadRequest)
@@ -127,7 +132,9 @@ func handleRead(w http.ResponseWriter, r *http.Request){
 }
 
 func handleMkdir(w http.ResponseWriter, r *http.Request){
-	var p PayloadDir
+	p := PayloadDir {
+		Dirname: "",
+	}
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
     http.Error(w, err.Error(), http.StatusBadRequest)
@@ -136,7 +143,9 @@ func handleMkdir(w http.ResponseWriter, r *http.Request){
 }
 
 func handleLs(w http.ResponseWriter, r *http.Request){
-	var p PayloadDir
+	p := PayloadDir {
+		Dirname: "",
+	}
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
     http.Error(w, err.Error(), http.StatusBadRequest)
@@ -145,7 +154,9 @@ func handleLs(w http.ResponseWriter, r *http.Request){
 }
 
 func handleStat(w http.ResponseWriter, r *http.Request){
-	var p PayloadFile
+	p := PayloadFile {
+		Filename: "",
+	}
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
     http.Error(w, err.Error(), http.StatusBadRequest)
@@ -154,7 +165,9 @@ func handleStat(w http.ResponseWriter, r *http.Request){
 }
 
 func handleRm(w http.ResponseWriter, r *http.Request){
-	var p PayloadFile
+	p := PayloadFile {
+		Filename: "",
+	}
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
     http.Error(w, err.Error(), http.StatusBadRequest)
@@ -163,7 +176,9 @@ func handleRm(w http.ResponseWriter, r *http.Request){
 }
 
 func handleEnv(w http.ResponseWriter, r *http.Request){
-	var p PayloadEnv
+	p := PayloadEnv {
+		Name: "",
+	}
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
     http.Error(w, err.Error(), http.StatusBadRequest)
@@ -172,7 +187,9 @@ func handleEnv(w http.ResponseWriter, r *http.Request){
 }
 
 func handleExec(w http.ResponseWriter, r *http.Request){
-	var p PayloadExec
+	p := PayloadExec {
+		Command: "",
+	}
 	err := json.NewDecoder(r.Body).Decode(&p)
 	if err != nil {
     http.Error(w, err.Error(), http.StatusBadRequest)
