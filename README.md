@@ -2,7 +2,7 @@
 
 Lightweight & easy web-based GUI for your app.
 
-Pronounced "woo-ee". It's written in go, and uses a client/server model, so it has an open port that any software can interact with. Think of it as a super-light, cross-platform alternative to electron. All of your code is meant to run inside the context of the web-page that makes up the UI, and just trigger the server to do native-things.
+Pronounced "woo-ee", it stands for "Web User interface". It's written in go, and uses a client/server model. Think of it as a super-light, cross-platform alternative to electron. All of your code is meant to run inside the context of the web-page that makes up the UI, and just trigger the server to do native-things.
 
 ## usage
 
