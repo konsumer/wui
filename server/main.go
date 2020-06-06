@@ -181,5 +181,5 @@ func handleExec(w http.ResponseWriter, r *http.Request){
 }
 
 func handleExit(w http.ResponseWriter, r *http.Request){
-
+	os.Exit(0)
 }

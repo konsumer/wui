@@ -5,6 +5,8 @@
 
 <button id='changeTitle'>Change Title</button>
 
+<button id='exit'>exit</button>
+
 <script src='/wui.js'></script>
 <script>
 const updateSettings = (c = {}) => WUI.settings(c).then(s => document.querySelector('pre').innerHTML = JSON.stringify(s, null, 2))
@@ -13,4 +15,6 @@ updateSettings()
 document.getElementById('changeTitle').onclick = async () => {
   await updateSettings({ title: (new Date()).toISOString() })
 }
+
+document.getElementById('exit').onclick = () => WUI.exit()
 </script>
