@@ -118,6 +118,10 @@ func handleWrite(w http.ResponseWriter, r *http.Request){
     http.Error(w, err.Error(), http.StatusBadRequest)
     return
 	}
+  err = ioutil.WriteFile(p.Filename, []byte(p.Contents), 0644)
+  if err != nil {
+    http.Error(w, err.Error(), http.StatusBadRequest)
+	}
 }
 
 func handleRead(w http.ResponseWriter, r *http.Request){
