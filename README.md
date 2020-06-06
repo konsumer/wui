@@ -13,7 +13,7 @@ npm init wui
 npm start
 ```
 
-Make a settings.json file to control how it operates:
+Make a app/settings.json file to control how it operates:
 
 ```json
 {

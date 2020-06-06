@@ -1,5 +1,16 @@
+<title>New Title</title>
 <h1>It works.</h1>
+<p>Here are your settings:</p>
+<pre></pre>
 
-<script type=module>
-import * as WUI from '/wui.js'
+<button id='changeTitle'>Change Title</button>
+
+<script src='/wui.js'></script>
+<script>
+const updateSettings = (c = {}) => WUI.settings(c).then(s => document.querySelector('pre').innerHTML = JSON.stringify(s, null, 2))
+updateSettings()
+
+document.getElementById('changeTitle').onclick = async () => {
+  await updateSettings({ title: (new Date()).toISOString() })
+}
 </script>
