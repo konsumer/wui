@@ -31,7 +31,7 @@ Make a app/settings.json file to control how it operates:
 ### running
 
 * Run `npm run build` to build complete zips for all supported platforms.
-* Run `npm start` to run the runtime in the background, and open your web-view in a browser for development.
+* Run `npm start` to run the runtime in the background, and open your live-reloading web-view in a browser for development.
 
 
 ### API
@@ -42,9 +42,8 @@ You can use it like this, inside your app, to do native things:
 
 
 ```html
-<script type=module>
-import * as WUI from '/wui.js'
-
+<script src='/wui.js'></script>
+<script>
 
 /// SETTINGS
 
