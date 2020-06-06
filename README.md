@@ -19,10 +19,10 @@ Make a settings.json file to control how it operates:
 {
   "title": "My app",
   "icon": "/icon.png",
-  "url": "/", // default
+  "url": "/",
   "tray": {
     "icon": "/icon.png",
-    "url": "/tray", // UI that gets loaded inside tray window
+    "url": "/tray",
   }
 }
 ```
