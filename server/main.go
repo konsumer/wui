@@ -88,7 +88,7 @@ func main() {
 	}
 
 	if config.Debug {
-		fmt.Println("Listening on http://" + listener.Addr().String() + config.Url)
+		fmt.Println("Listening on http://" + listener.Addr().String() + config.URL)
 	}
 
 	go http.Serve(listener, nil)
@@ -135,6 +135,7 @@ func handleWrite(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 	}
+	fmt.Fprintf(w, "1")
 }
 
 func handleRead(w http.ResponseWriter, r *http.Request) {
@@ -167,6 +168,13 @@ func handleMkdir(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
+	err = os.MkdirAll(p.Dirname, 755)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	fmt.Fprintf(w, "1")
 }
 
 func handleLs(w http.ResponseWriter, r *http.Request) {
