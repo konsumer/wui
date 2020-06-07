@@ -100,18 +100,16 @@ func main() {
 
 // TODO: use webview.Eval & webview.Bind to connect this all, directly?
 func handlSettings(w http.ResponseWriter, r *http.Request) {
-	if r.Method == http.MethodPost {
-		var newConfig Config
-		err := json.NewDecoder(r.Body).Decode(&newConfig)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
-		err = mergo.Merge(&config, newConfig, mergo.WithOverride)
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusBadRequest)
-			return
-		}
+	var newConfig Config
+	err := json.NewDecoder(r.Body).Decode(&newConfig)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	err = mergo.Merge(&config, newConfig, mergo.WithOverride)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
 	}
 	json.NewEncoder(w).Encode(config)
 }
