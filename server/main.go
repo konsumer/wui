@@ -186,6 +186,19 @@ func handleLs(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+	files, err := ioutil.ReadDir(p.Dirname)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	out := []string{}
+
+	for _, file := range files {
+		out = append(out, file.Name())
+	}
+
+	json.NewEncoder(w).Encode(out)
 }
 
 func handleStat(w http.ResponseWriter, r *http.Request) {
