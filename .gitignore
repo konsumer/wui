@@ -1,5 +1,6 @@
 node_moduels
 *.log
 .DS_Store
-create-wui/wui-*
 test.txt
+runtimes/wui-*
+releases/wui-*

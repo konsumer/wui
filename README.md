@@ -120,3 +120,8 @@ Other than that, you can use all the regular HTML stuff, like:
 * [database](https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API)
 * [2D](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API)
 * [3D](https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API)
+
+
+### development
+
+For development, you will need go installed. run `go get github.com/konsumer/wui` to get the repo & deps installed locally, in your go-tree. I also use `upx` to compress binaries, which should be in your path. I added some targets to the Makefile. Run `make` by itself to get a quick demo of the runtime on your platform.
