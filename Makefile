@@ -43,7 +43,7 @@ runtimes/wui.exe: server/main.go
 	upx --best $@
 
 releases/wui-win-amd64.zip: runtimes/wui.exe
-	cd runtimes && zip -9 $? $(shell basename "$@") && mv $@ ../releases
+	cd runtimes && zip -9 $(shell basename "$@") $(shell basename "$?") && mv $(shell basename "$@") ../releases
 
 
 runtimes/wui-osx: server/main.go
@@ -51,4 +51,4 @@ runtimes/wui-osx: server/main.go
 	upx --best $@
 
 releases/wui-osx-amd64.zip: runtimes/wui-osx
-	cd runtimes && zip -9 $? $(shell basename "$@") && mv $@ ../releases
+	cd runtimes && zip -9 $(shell basename "$@") $(shell basename "$?") && mv $(shell basename "$@") ../releases
