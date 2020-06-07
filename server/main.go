@@ -13,35 +13,42 @@ import (
 	"github.com/zserge/webview"
 )
 
+// Config - settings format
 type Config struct {
 	Title string `json:"title"`
-	Icon  string `json:"icon""`
-	Url   string `json:"url"`
+	Icon  string `json:"icon"`
+	URL   string `json:"url"`
 	Debug bool   `json:"debug"`
 }
 
+// PayloadFileWrite - write to a file
 type PayloadFileWrite struct {
 	Filename string `json:"filename"`
 	Contents string `json:"contents"`
 }
 
+// PayloadFile - reference a file
 type PayloadFile struct {
 	Filename string `json:"filename"`
 }
 
+// PayloadDir - reference a directory
 type PayloadDir struct {
 	Dirname string `json:"dirname"`
 }
 
+// PayloadEnv - reference an environment-variable
 type PayloadEnv struct {
 	Name  string `json:"name"`
 	Value string `json:"value"`
 }
 
+// PayloadExec - reference a command
 type PayloadExec struct {
 	Command string `json:"command"`
 }
 
+// PayloadFileRead - reference file-contents
 type PayloadFileRead struct {
 	Contents string `json:"contents"`
 }
@@ -56,7 +63,7 @@ func main() {
 	config = Config{
 		Title: "WUI App",
 		Icon:  "./app.png",
-		Url:   "/",
+		URL:   "/",
 	}
 
 	json.Unmarshal(byteValue, &config)
@@ -86,15 +93,15 @@ func main() {
 
 	go http.Serve(listener, nil)
 
-	if !strings.HasPrefix(config.Url, "http") {
-		config.Url = "http://" + listener.Addr().String() + config.Url
+	if !strings.HasPrefix(config.URL, "http") {
+		config.URL = "http://" + listener.Addr().String() + config.URL
 	}
 
 	w := webview.New(config.Debug)
 	defer w.Destroy()
 	w.SetTitle(config.Title)
 	w.SetSize(800, 600, webview.HintNone)
-	w.Navigate(config.Url)
+	w.Navigate(config.URL)
 	w.Run()
 }
 
