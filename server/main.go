@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	"github.com/imdario/mergo"
 	"github.com/zserge/webview"
@@ -51,6 +52,15 @@ type PayloadExec struct {
 // PayloadFileRead - reference file-contents
 type PayloadFileRead struct {
 	Contents string `json:"contents"`
+}
+
+// PayloadFileInfo - reference file-info
+type PayloadFileInfo struct {
+	Name    string    `json:"name"`
+	Size    int64     `json:"size"`
+	Mode    string    `json:"mode"`
+	ModTime time.Time `json:"modTime"`
+	IsDir   bool      `json:"isDir"`
 }
 
 var config Config
@@ -210,6 +220,19 @@ func handleStat(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
+	info, err := os.Stat(p.Filename)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	out := PayloadFileInfo{
+		Name:  info.Name(),
+		Size:  info.Size(),
+		Mode:  info.Mode().Perm().String(),
+		IsDir: info.IsDir(),
+	}
+	json.NewEncoder(w).Encode(out)
 }
 
 func handleRm(w http.ResponseWriter, r *http.Request) {
