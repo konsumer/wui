@@ -1,4 +1,14 @@
 {
+  "title": "My App",
+  "icon": "icon.png",
   "debug": true,
-  "url": "/"
+  "url": "/",
+  "tray": {
+    "title": "My App",
+    "icon": "icon.png",
+    "menu": [
+      {"title": "About", "url": "/about", "tooltip": "About this application"},
+      {"title": "Quit", "url": "/_api/exit", "tooltip": "Quit this application"}
+    ]
+  }
 }

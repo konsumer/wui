@@ -10,16 +10,34 @@ import (
 	"strings"
 	"time"
 
+	"github.com/getlantern/systray"
 	"github.com/imdario/mergo"
 	"github.com/zserge/webview"
 )
 
 // Config - settings format
 type Config struct {
-	Title string `json:"title"`
-	Icon  string `json:"icon"`
-	URL   string `json:"url"`
-	Debug bool   `json:"debug"`
+	Title  string `json:"title"`
+	Icon   string `json:"icon"`
+	URL    string `json:"url"`
+	Debug  bool   `json:"debug"`
+	Tray   Tray   `json:"tray"`
+	Width  int    `json:"width"`
+	Height int    `json:"height"`
+}
+
+// Tray - definition of Tray-menu
+type Tray struct {
+	Title string     `json:"title"`
+	Icon  string     `json:"icon"`
+	Menu  []TrayItem `json:"menu"`
+}
+
+// TrayItem - single tray-menu item
+type TrayItem struct {
+	Title   string `json:"title"`
+	URL     string `json:"url"`
+	Tooltip string `json:"tooltip"`
 }
 
 // PayloadFileWrite - write to a file
@@ -64,6 +82,7 @@ type PayloadFileInfo struct {
 }
 
 var config Config
+var w webview.WebView
 
 func main() {
 	r, err := os.Open("./app/settings.json")
@@ -71,9 +90,12 @@ func main() {
 
 	// defaults
 	config = Config{
-		Title: "WUI App",
-		Icon:  "./app.png",
-		URL:   "/",
+		Title:  "WUI App",
+		Icon:   "./app.png",
+		URL:    "/",
+		Width:  800,
+		Height: 600,
+		Tray:   Tray{},
 	}
 
 	json.Unmarshal(byteValue, &config)
@@ -107,12 +129,29 @@ func main() {
 		config.URL = "http://" + listener.Addr().String() + config.URL
 	}
 
-	w := webview.New(config.Debug)
+	w = webview.New(config.Debug)
 	defer w.Destroy()
 	w.SetTitle(config.Title)
-	w.SetSize(800, 600, webview.HintNone)
+	w.SetSize(config.Width, config.Height, webview.HintNone)
 	w.Navigate(config.URL)
+
+	if config.Tray.Icon != "" {
+		systray.Run(onTrayReady, nil)
+	}
+
 	w.Run()
+}
+
+func onTrayReady() {
+	systray.SetTitle(config.Tray.Title)
+	for _, item := range config.Tray.Menu {
+		mItem := systray.AddMenuItem(item.Title, item.Tooltip)
+		go func(item TrayItem) {
+			<-mItem.ClickedCh
+			fmt.Println(item.Title)
+			w.Navigate(item.URL)
+		}(item)
+	}
 }
 
 // TODO: use webview.Eval & webview.Bind to connect this all, directly?
